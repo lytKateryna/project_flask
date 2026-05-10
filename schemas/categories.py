@@ -1,14 +1,16 @@
-from pydantic import (
-    BaseModel,
-    Field,
-    model_validator,
-    ConfigDict
-)
+from pydantic import Field
+
 from schemas.base import BaseSchema
 
 
-
 class CategoryBase(BaseSchema):
-    id: int = Field()
-    name: str = Field(...,min_length=15 ,max_length=50)
+    id: int
+    name: str = Field(..., min_length=1, max_length=50)
 
+
+class CategoryCreateRequest(BaseSchema):
+    name: str = Field(..., min_length=1, max_length=50)
+
+
+class CategoryUpdateRequest(BaseSchema):
+    name: str | None = Field(default=None, min_length=1, max_length=50)
